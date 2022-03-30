@@ -1,0 +1,4 @@
+List the three  common types of error in your data.
+1.Random error
+2.Systematic error
+3.Calibration factors

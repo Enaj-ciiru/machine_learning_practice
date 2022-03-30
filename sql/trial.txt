@@ -1,0 +1,125 @@
+
+-- Create a new table called 'employees'
+
+CREATE TABLE employees (
+	employee_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+	first_name text,
+	last_name text NOT NULL,
+	email text NOT NULL,
+	phone_number text,
+	hire_date text NOT NULL,
+	job_id INTEGER NOT NULL,
+	salary double NOT NULL,
+	manager_id INTEGER,
+	department_id INTEGER NOT NULL,
+	FOREIGN KEY (job_id) REFERENCES jobs (job_id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (department_id) REFERENCES departments (department_id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (manager_id) REFERENCES employees (employee_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Select all data from employees table 
+
+SELECT * FROM employees;
+
+--Order data from first and last name columns in descending order
+
+SELECT
+	employee_id,
+	first_name,
+	last_name,
+	hire_date,
+	salary
+FROM
+	employees
+ORDER BY
+	first_name,
+	last_name DESC;
+
+--Can also order data from hire_date column in descending order
+
+SELECT
+	employee_id,
+	first_name,
+	last_name,
+	hire_date,
+	salary
+FROM
+	employees
+ORDER BY
+	hire_date DESC;
+
+--Distinct operator used to remove duplicate values in job_id and salary
+
+SELECT DISTINCT
+	job_id,
+	salary
+FROM
+	employees
+ORDER BY
+	job_id,
+	salary DESC;
+
+--Limit clause to restrict the return output to 5 first rows containing the id, first name and last name
+
+SELECT 
+    employee_id, 
+    first_name, 
+    last_name
+FROM
+    employees
+ORDER BY 
+	first_name
+LIMIT 5;   
+
+--Checks if phone number is null:comparison operator
+
+SELECT 
+    employee_id, first_name, last_name, phone_number
+FROM
+    employees
+WHERE
+    phone_number IS NULL;
+
+
+--Checks if requirements are met:comparison operator
+
+SELECT 
+    employee_id, first_name, last_name, salary
+FROM
+    employees
+WHERE
+    salary > 10000 AND department_id = 8
+ORDER BY salary DESC;
+
+-- Insert row into table 'employees'
+
+INSERT INTO employees (
+	employee_id,
+	first_name,
+	last_name	
+)
+VALUES
+	(
+		176
+		'Nikita',
+		'Mbugua',
+	);
+
+-- Get total count of employees in groupby department 
+
+SELECT
+	department_id,
+	COUNT(*)
+FROM
+	employees
+GROUP BY
+	department_id;
+
+-- Update row into employees table where last name is Lopez
+
+UPDATE employees 
+SET 
+    last_name = 'Lopez'
+WHERE
+    employee_id = 192;
+
